@@ -1,13 +1,10 @@
 package com.ceiba.ticket.modelo.entidad;
 
 import com.ceiba.dominio.HolidayUtil;
-import com.ceiba.ticket.exception.ValorInvalidoTicketException;
+import com.ceiba.ticket.exception.ValorInvalidoTipoVehiculoException;
 import lombok.Getter;
 
-import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
@@ -33,13 +30,14 @@ public class Ticket {
     private static final Integer AUTOMOVIL = 1;
     private static final Integer MOTOCICLETA = 2;
 
-    private final Long id;
-    private final String placaVehiculo;
-    private final Integer tipoVehiculo;
-    private final LocalDateTime horaEntrada;
+    private Long id;
+    private String placaVehiculo;
+    private Integer tipoVehiculo;
+    private LocalDateTime horaEntrada;
     private LocalDateTime horaSalida;
-    private final LocalDateTime createdAd;
+    private LocalDateTime createdAt;
     private Double totalPagado;
+
     private final HolidayUtil holidayUtil = new HolidayUtil(LocalDateTime.now().getYear());
 
     public Ticket(Long id, String placaVehiculo, Integer tipoVehiculo) {
@@ -47,61 +45,20 @@ public class Ticket {
         validarObligatorio(tipoVehiculo, TICKET_SIN_TIPO_VEHICULO);
 
         if (!tipoVehiculo.equals(AUTOMOVIL) && !tipoVehiculo.equals(MOTOCICLETA))
-            throw new ValorInvalidoTicketException(TIPO_VEHICULO_INVALIDO);
+            throw new ValorInvalidoTipoVehiculoException(TIPO_VEHICULO_INVALIDO);
 
-        if (this.calcularDiferenciaEntreHorasEnSegundos(LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(),
-                HORA_APERTURA_LABORES, MINUTO_APERTURA_LABORES) >= 0)
-            throw new ValorInvalidoTicketException(PARKING_CERRADO);
+//        if (this.calcularDiferenciaEntreHorasEnSegundos(LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(),
+//                HORA_APERTURA_LABORES, MINUTO_APERTURA_LABORES) >= 0)
+//            throw new ValorInvalidoTipoVehiculoException(PARKING_CERRADO);
 
         this.id = id;
         this.placaVehiculo = placaVehiculo;
         this.tipoVehiculo = tipoVehiculo;
         this.horaEntrada = LocalDateTime.now();
-        this.horaSalida = null;
-        this.createdAd = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
         this.totalPagado = 0d;
     }
 
-    public void calcularTotalPago() {
-        this.horaSalida = LocalDateTime.now();
-        double totalPago = 0;
-        boolean recargoPorDomingoFestivo = this.calcularSiTieneRecargoPorDomingoFestivo();
-
-        int horaEntradaNumero = this.horaEntrada.getHour();
-        int minutosEntradaNumero = this.horaEntrada.getMinute();
-        int horaSalidaNumero = this.horaSalida.getHour();
-        int minutoSalidaNumero = this.horaSalida.getMinute();
-
-        long tiempoTotalEnSegundos = this.calcularDiferenciaEntreHorasEnSegundos(horaEntradaNumero, minutosEntradaNumero,
-                horaSalidaNumero, minutoSalidaNumero);
-
-        double tiempoEnHoras = Math.round((tiempoTotalEnSegundos / 3600d) * 1000.0) / 1000.0;
-        double minutos = tiempoEnHoras % 1;
-        double horas = tiempoEnHoras - minutos;
-
-        if (this.tipoVehiculo.equals(AUTOMOVIL)) {
-            totalPago = (horas * PRECIO_HORA_AUTOMOVIL) + (minutos <= 30 ? PRECIO_MEDIA_HORA_AUTOMOVIL : PRECIO_HORA_AUTOMOVIL);
-        } else if (this.tipoVehiculo.equals(MOTOCICLETA)) {
-            totalPago = (horas * PRECIO_HORA_MOTOCICLETA) + (minutos <= 30 ? PRECIO_MEDIA_HORA_MOTOCICLETA : PRECIO_HORA_MOTOCICLETA);
-        }
-
-        if (recargoPorDomingoFestivo)
-            this.totalPagado = totalPago * 2;
-        else
-            this.totalPagado = totalPago;
-    }
-
-    private boolean calcularSiTieneRecargoPorDomingoFestivo() {
-        return holidayUtil.isHoliday(this.horaEntrada.getMonthValue() - 1, this.horaEntrada.getDayOfMonth()) ||
-                this.horaEntrada.getDayOfWeek().getValue() == DayOfWeek.SUNDAY.getValue();
-    }
-
-    private long calcularDiferenciaEntreHorasEnSegundos(int horaEntradaNumero, int minutosEntradaNumero,
-                                                        int horaSalidaNumero, int minutoSalidaNumero) {
-        LocalTime startLocalTime = LocalTime.of(horaEntradaNumero, minutosEntradaNumero);
-        LocalTime endLocalTime = LocalTime.of(horaSalidaNumero, minutoSalidaNumero);
-        return Duration.between(startLocalTime, endLocalTime).getSeconds();
-    }
 
     @Override
     public String toString() {
@@ -111,7 +68,7 @@ public class Ticket {
                 ", tipo_vehiculo='" + tipoVehiculo + '\'' +
                 ", hora_entrada=" + horaEntrada +
                 ", hora_salida=" + horaSalida +
-                ", created_ad=" + createdAd +
+                ", created_ad=" + createdAt +
                 '}';
     }
 }

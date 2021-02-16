@@ -1,5 +1,9 @@
 package com.ceiba.configuracion;
 
+import com.ceiba.ticket.puerto.repositorio.RepositorioTicket;
+import com.ceiba.ticket.servicio.ServicioCrearTicket;
+import com.ceiba.ticket.servicio.ServicioEliminarTicket;
+import com.ceiba.ticket.servicio.ServicioPagarTicket;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
 import com.ceiba.usuario.servicio.ServicioCrearUsuario;
@@ -24,6 +28,20 @@ public class BeanServicio {
     public ServicioActualizarUsuario servicioActualizarUsuario(RepositorioUsuario repositorioUsuario) {
         return new ServicioActualizarUsuario(repositorioUsuario);
     }
-	
+
+    @Bean
+    public ServicioCrearTicket servicioCrearTicket(RepositorioTicket repositorioTicket){
+        return new ServicioCrearTicket(repositorioTicket);
+    }
+
+    @Bean
+    public ServicioEliminarTicket servicioEliminarTicket(RepositorioTicket repositorioTicket){
+        return new ServicioEliminarTicket(repositorioTicket);
+    }
+
+    @Bean
+    public ServicioPagarTicket servicioPagarTicket(RepositorioTicket repositorioTicket){
+        return new ServicioPagarTicket(repositorioTicket);
+    }
 
 }

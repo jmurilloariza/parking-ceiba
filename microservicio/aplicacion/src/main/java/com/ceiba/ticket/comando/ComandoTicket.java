@@ -1,20 +1,20 @@
-package com.ceiba.ticket.modelo.dto;
+package com.ceiba.ticket.comando;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
-public class DtoTicket {
+@NoArgsConstructor
+public class ComandoTicket {
 
     private Long id;
     private String placaVehiculo;
     private Integer tipoVehiculo;
-    private LocalDateTime horaEntrada;
-    private LocalDateTime horaSalida;
-    private LocalDateTime createdAt;
-    private Double totalPagado;
 
 }

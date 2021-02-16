@@ -6,13 +6,13 @@ create table usuario (
  primary key (id)
 );
 
-CREATE TABLE IF NOT EXISTS `mydb`.`ticket` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `placa_vehiculo` VARCHAR(8) NOT NULL,
-  `tipo_vehiculo` TIME NOT NULL,
-  `hora_entrada` TIME NOT NULL,
-  `hora_salida` VARCHAR(45) NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  `total_pagado` DOUBLE NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
+CREATE TABLE ticket (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  placa_vehiculo VARCHAR(8) NOT NULL,
+  tipo_vehiculo datetime NULL,
+  hora_entrada datetime NULL,
+  hora_salida VARCHAR(45) NULL,
+  created_at datetime NOT NULL,
+  total_pagado DOUBLE NULL,
+  PRIMARY KEY (id)
+  );

@@ -23,5 +23,9 @@ public interface RepositorioTicket {
      */
     void eliminar(Long id);
 
-
+    /**
+     * Permite validar si existe un ticket por Id
+     * @param id
+     */
+    boolean existe(Long id);
 }
