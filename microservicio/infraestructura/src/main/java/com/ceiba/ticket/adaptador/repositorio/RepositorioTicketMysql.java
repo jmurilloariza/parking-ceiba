@@ -15,9 +15,6 @@ public class RepositorioTicketMysql implements RepositorioTicket {
     @SqlStatement(namespace= "ticket", value="crear")
     private static String sqlCrear;
 
-    @SqlStatement(namespace= "ticket", value="actualizar")
-    private static String sqlActualizar;
-
     @SqlStatement(namespace= "ticket", value="eliminar")
     private static String sqlEliminar;
 
@@ -35,7 +32,6 @@ public class RepositorioTicketMysql implements RepositorioTicket {
 
     @Override
     public void actualizar(Ticket ticket) {
-        this.customNamedParameterJdbcTemplate.actualizar(ticket, sqlActualizar);
     }
 
     @Override

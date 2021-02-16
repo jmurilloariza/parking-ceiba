@@ -1,6 +1,8 @@
 package com.ceiba.configuracion;
 
+import com.ceiba.ticket.puerto.dao.DaoTicket;
 import com.ceiba.ticket.puerto.repositorio.RepositorioTicket;
+import com.ceiba.ticket.servicio.ServicioCalcularTotalPagoTicket;
 import com.ceiba.ticket.servicio.ServicioCrearTicket;
 import com.ceiba.ticket.servicio.ServicioEliminarTicket;
 import com.ceiba.ticket.servicio.ServicioPagarTicket;
@@ -30,8 +32,8 @@ public class BeanServicio {
     }
 
     @Bean
-    public ServicioCrearTicket servicioCrearTicket(RepositorioTicket repositorioTicket){
-        return new ServicioCrearTicket(repositorioTicket);
+    public ServicioCrearTicket servicioCrearTicket(RepositorioTicket repositorioTicket, DaoTicket daoTicket){
+        return new ServicioCrearTicket(repositorioTicket, daoTicket);
     }
 
     @Bean
@@ -42,6 +44,11 @@ public class BeanServicio {
     @Bean
     public ServicioPagarTicket servicioPagarTicket(RepositorioTicket repositorioTicket){
         return new ServicioPagarTicket(repositorioTicket);
+    }
+
+    @Bean
+    public ServicioCalcularTotalPagoTicket servicioCalcularTotalPagoTicket(){
+        return new ServicioCalcularTotalPagoTicket();
     }
 
 }

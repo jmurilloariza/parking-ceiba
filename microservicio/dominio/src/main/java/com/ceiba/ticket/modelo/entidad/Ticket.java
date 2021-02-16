@@ -1,7 +1,7 @@
 package com.ceiba.ticket.modelo.entidad;
 
 import com.ceiba.dominio.HolidayUtil;
-import com.ceiba.ticket.exception.ValorInvalidoTipoVehiculoException;
+import com.ceiba.dominio.excepcion.ExceptionValorInvalidoTipoVehiculo;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class Ticket {
 
     private static final String TICKET_SIN_PLACA = "Se debe ingresar la placa del vehiculo";
     private static final String TICKET_SIN_TIPO_VEHICULO = "Se debe ingresar el tipo de vehiculo";
-    private static final String TIPO_VEHICULO_INVALIDO = "Tipo de vehiculo invalido, 1 para automovil ó 2 para motocicleta";
+    private static final String TIPO_VEHICULO_INVALIDO = "Tipo de vehiculo invalido, 1 para automovil o 2 para motocicleta";
     private static final String PARKING_CERRADO = "El parkeadero aun no abre";
 
     private static final Integer PRECIO_HORA_AUTOMOVIL = 1000;
@@ -45,20 +45,26 @@ public class Ticket {
         validarObligatorio(tipoVehiculo, TICKET_SIN_TIPO_VEHICULO);
 
         if (!tipoVehiculo.equals(AUTOMOVIL) && !tipoVehiculo.equals(MOTOCICLETA))
-            throw new ValorInvalidoTipoVehiculoException(TIPO_VEHICULO_INVALIDO);
+            throw new ExceptionValorInvalidoTipoVehiculo(TIPO_VEHICULO_INVALIDO);
+        /*
+        if (this.calcularDiferenciaEntreHorasEnSegundos(LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(),
+                HORA_APERTURA_LABORES, MINUTO_APERTURA_LABORES) >= 0)
+            throw new ValorInvalidoTipoVehiculoException(PARKING_CERRADO);
 
-//        if (this.calcularDiferenciaEntreHorasEnSegundos(LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(),
-//                HORA_APERTURA_LABORES, MINUTO_APERTURA_LABORES) >= 0)
-//            throw new ValorInvalidoTipoVehiculoException(PARKING_CERRADO);
+         */
 
         this.id = id;
         this.placaVehiculo = placaVehiculo;
         this.tipoVehiculo = tipoVehiculo;
         this.horaEntrada = LocalDateTime.now();
         this.createdAt = LocalDateTime.now();
+        this.horaSalida = null;
         this.totalPagado = 0d;
     }
 
+    public void setTotalPagado(Double totalPagado) {
+        this.totalPagado = totalPagado;
+    }
 
     @Override
     public String toString() {

@@ -1,0 +1,1 @@
+select * from ticket where placa_vehiculo = :placa_vehiculo and hora_salida is null;

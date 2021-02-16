@@ -5,7 +5,6 @@ import com.ceiba.ticket.comando.ComandoTicket;
 import com.ceiba.ticket.comando.manejador.ManejadorCrearTicket;
 import com.ceiba.ticket.comando.manejador.ManejadorEliminarTicket;
 import com.ceiba.ticket.comando.manejador.ManejadorPagarTicket;
-import com.ceiba.ticket.modelo.dto.DtoTicket;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class ComandoControladorTicket {
 
     @PostMapping(value="/pagar/{id}")
     @ApiOperation("Pagar ticket")
-    public DtoTicket pagarTicket(@PathVariable Long id){
+    public Double pagarTicket(@PathVariable Long id){
         return this.manejadorPagarTicket.ejecutar(id);
     }
 

@@ -1,30 +1,29 @@
 package com.ceiba.ticket.comando.manejador;
 
-import com.ceiba.ticket.comando.fabrica.FabricaTicket;
 import com.ceiba.ticket.modelo.dto.DtoTicket;
 import com.ceiba.ticket.puerto.dao.DaoTicket;
 import com.ceiba.ticket.servicio.ServicioCalcularTotalPagoTicket;
-import com.ceiba.ticket.servicio.ServicioPagarTicket;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class ManejadorPagarTicket {
 
     private final DaoTicket daoTicket;
-    private final FabricaTicket fabricaTicket;
-    private final ServicioPagarTicket servicioPagarTicket;
     private final ServicioCalcularTotalPagoTicket servicioCalcularTotalPagoTicket;
 
-    public ManejadorPagarTicket(DaoTicket daoTicket, FabricaTicket fabricaTicket, ServicioPagarTicket servicioPagarTicket, ServicioCalcularTotalPagoTicket servicioCalcularTotalPagoTicket) {
+    public ManejadorPagarTicket(DaoTicket daoTicket, ServicioCalcularTotalPagoTicket servicioCalcularTotalPagoTicket) {
         this.daoTicket = daoTicket;
-        this.fabricaTicket = fabricaTicket;
-        this.servicioPagarTicket = servicioPagarTicket;
         this.servicioCalcularTotalPagoTicket = servicioCalcularTotalPagoTicket;
     }
 
-    public DtoTicket ejecutar(Long id){
+    public Double ejecutar(Long id){
         DtoTicket dtoTicket = this.daoTicket.buscarPorId(id);
+        Double valorPago = servicioCalcularTotalPagoTicket.ejecutar(dtoTicket.getTipoVehiculo(), dtoTicket.getHoraEntrada());
+        LocalDateTime horaSalida = LocalDateTime.now();
 
-        return dtoTicket;
+        daoTicket.actualizarPagoTicket(id, valorPago, horaSalida);
+        return valorPago;
     }
 }
