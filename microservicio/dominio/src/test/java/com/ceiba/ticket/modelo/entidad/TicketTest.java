@@ -2,7 +2,6 @@ package com.ceiba.ticket.modelo.entidad;
 
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.dominio.excepcion.ExceptionValorInvalidoTipoVehiculo;
-import com.ceiba.ticket.modelo.entidad.Ticket;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;

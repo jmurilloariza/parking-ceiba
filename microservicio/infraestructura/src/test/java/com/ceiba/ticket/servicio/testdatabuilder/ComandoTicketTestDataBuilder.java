@@ -2,8 +2,6 @@ package com.ceiba.ticket.servicio.testdatabuilder;
 
 import com.ceiba.ticket.comando.ComandoTicket;
 
-import java.util.UUID;
-
 public class ComandoTicketTestDataBuilder {
 
     private Long id;
