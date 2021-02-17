@@ -32,6 +32,7 @@ public class RepositorioTicketMysql implements RepositorioTicket {
 
     @Override
     public void actualizar(Ticket ticket) {
+//        NO ha sido necesario para este ejercicio
     }
 
     @Override

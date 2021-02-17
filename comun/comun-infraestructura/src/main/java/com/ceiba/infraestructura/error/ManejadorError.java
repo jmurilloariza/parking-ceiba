@@ -49,6 +49,7 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
             resultado = new ResponseEntity<>(error, HttpStatus.valueOf(codigo));
         } else {
             LOGGER_ERROR.error(excepcionNombre, exception);
+            LOGGER_ERROR.error(exception.getMessage());
             Error error = new Error(excepcionNombre, OCURRIO_UN_ERROR_FAVOR_CONTACTAR_AL_ADMINISTRADOR);
             resultado = new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }

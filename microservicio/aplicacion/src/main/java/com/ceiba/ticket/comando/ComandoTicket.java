@@ -1,19 +1,24 @@
 package com.ceiba.ticket.comando;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class ComandoTicket {
 
     private Long id;
     private String placaVehiculo;
     private Integer tipoVehiculo;
+
+    public ComandoTicket() {
+    }
+
+    public ComandoTicket(Long id, String placaVehiculo, Integer tipoVehiculo) {
+        this.id = id;
+        this.placaVehiculo = placaVehiculo;
+        this.tipoVehiculo = tipoVehiculo;
+    }
 
     @Override
     public String toString() {
