@@ -37,7 +37,7 @@ pipeline {
       steps{
         echo "------------>Clean<------------"
 	dir("microservicio") {
-            sh 'gradle --b ./build.gradle clean'
+            sh 'gradle --b ./microservicio/build.gradle clean'
 	}
       }
     }
@@ -46,8 +46,8 @@ pipeline {
       steps{
         echo "------------>Unit Tests<------------"
 	dir("microservicio") {
-            sh 'gradle --b ./build.gradle clean'
-            sh 'gradle --b ./build.gradle jacocoTestReport'
+            sh 'gradle --b ./microservicio/build.gradle clean'
+            sh 'gradle --b ./microservicio/build.gradle jacocoTestReport'
 	}
       }
     }
@@ -68,7 +68,7 @@ pipeline {
       steps {
         echo "------------>Build<------------"
 	dir("microservicio") {
-	    sh 'gradle --b ./build.gradle build -x test'
+	    sh 'gradle --b ./microservicio/build.gradle build -x test'
 	}
 
       }
