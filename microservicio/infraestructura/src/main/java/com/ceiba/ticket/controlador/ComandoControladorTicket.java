@@ -31,7 +31,7 @@ public class ComandoControladorTicket {
 
     @PostMapping(value="/pagar/{id}")
     @ApiOperation("Pagar ticket")
-    public Double pagarTicket(@PathVariable Long id){
+    public ComandoRespuesta<Double> pagarTicket(@PathVariable Long id){
         return this.manejadorPagarTicket.ejecutar(id);
     }
 

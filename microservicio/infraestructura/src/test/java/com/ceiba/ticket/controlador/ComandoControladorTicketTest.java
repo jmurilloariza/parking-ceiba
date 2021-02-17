@@ -29,16 +29,31 @@ public class ComandoControladorTicketTest {
     @Autowired
     private MockMvc mocMvc;
 
+    private static final String ENDPOINT = "/tickets";
+
     @Test
     public void crear() throws Exception{
         // arrange
         ComandoTicket ticket = new ComandoTicketTestDataBuilder().build();
-        System.out.println(ticket.toString());
         // act - assert
-        mocMvc.perform(post("/tickets")
+        mocMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ticket)))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", not(empty())))
+                .andExpect(jsonPath("$.valor", any(Integer.class)));
+    }
+
+    @Test
+    public void testPagarTicket() throws Exception {
+        Long id = 1L;
+        // act - assert
+        mocMvc.perform(post(ENDPOINT.concat("/pagar/{id}"), id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", not(empty())))
+                .andExpect(jsonPath("$.valor", any(Double.class)));
     }
 
 }

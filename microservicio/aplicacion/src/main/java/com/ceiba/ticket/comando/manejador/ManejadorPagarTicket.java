@@ -1,5 +1,6 @@
 package com.ceiba.ticket.comando.manejador;
 
+import com.ceiba.ComandoRespuesta;
 import com.ceiba.ticket.modelo.dto.DtoTicket;
 import com.ceiba.ticket.puerto.dao.DaoTicket;
 import com.ceiba.ticket.servicio.ServicioCalcularTotalPagoTicket;
@@ -18,12 +19,12 @@ public class ManejadorPagarTicket {
         this.servicioCalcularTotalPagoTicket = servicioCalcularTotalPagoTicket;
     }
 
-    public Double ejecutar(Long id){
+    public ComandoRespuesta<Double> ejecutar(Long id){
         DtoTicket dtoTicket = this.daoTicket.buscarPorId(id);
         Double valorPago = servicioCalcularTotalPagoTicket.ejecutar(dtoTicket.getTipoVehiculo(), dtoTicket.getHoraEntrada());
         LocalDateTime horaSalida = LocalDateTime.now();
 
         daoTicket.actualizarPagoTicket(id, valorPago, horaSalida);
-        return valorPago;
+        return new ComandoRespuesta<>(valorPago);
     }
 }
