@@ -40,7 +40,7 @@ public class ComandoControladorTicketTest {
         mocMvc.perform(post("/tickets")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ticket)))
-                .andExpect(status().isOk());
+                .andExpect(status().isInternalServerError());
     }
 
 }
