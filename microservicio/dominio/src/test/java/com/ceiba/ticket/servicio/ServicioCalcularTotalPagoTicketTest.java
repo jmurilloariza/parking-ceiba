@@ -44,7 +44,7 @@ public class ServicioCalcularTotalPagoTicketTest {
         Integer tipoVehiculo = 2;
 
         double totalPagoCalculado = servicioCalcularTotalPagoTicket.ejecutar(tipoVehiculo, horaEntrada);
-        double totalPagoEsperado = 3600;
+        double totalPagoEsperado = 6600;
 
         Assert.assertEquals(totalPagoEsperado, totalPagoCalculado, 2);
     }
