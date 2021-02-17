@@ -36,6 +36,13 @@ pipeline {
         }
     }
 
+    stage('Permisos gradlew') {
+      steps{
+        echo "------------>Permisos gradlew<------------"
+        sh 'chmod +x ./microservicio/gradlew'
+      }
+    }
+
     stage('Clean') {
       steps{
         echo "------------>Clean<------------"
