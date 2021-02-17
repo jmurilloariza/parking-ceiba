@@ -25,7 +25,10 @@ public class ServicioCalcularTotalPagoTicket {
         double tiempoEnHoras = (long) DateUtil.calcularDiferenciaEntreHoras(horaEntrada, horaSalida);
         double totalPago = this.realizarCalculoTotalApagar(tipoVehiculo, tiempoEnHoras);
 
-        if (recargoPorDomingoFestivo) return totalPago * 2;
+        if (recargoPorDomingoFestivo) {
+            totalPago = totalPago * 2;
+            return totalPago;
+        }
         return totalPago;
     }
 
