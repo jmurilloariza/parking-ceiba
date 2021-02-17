@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.mockito.Mockito;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ServicioCrearTicketTest {
@@ -39,7 +40,7 @@ public class ServicioCrearTicketTest {
         System.out.println(ticket.toString());
         System.out.println(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo()));
 
-        assertTrue(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo()));
+        assertFalse(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo()));
 
     }
 
