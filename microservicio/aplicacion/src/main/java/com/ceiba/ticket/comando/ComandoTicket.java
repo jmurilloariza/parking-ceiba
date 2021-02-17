@@ -15,4 +15,12 @@ public class ComandoTicket {
     private String placaVehiculo;
     private Integer tipoVehiculo;
 
+    @Override
+    public String toString() {
+        return "ComandoTicket{" +
+                "id=" + id +
+                ", placaVehiculo='" + placaVehiculo + '\'' +
+                ", tipoVehiculo=" + tipoVehiculo +
+                '}';
+    }
 }
