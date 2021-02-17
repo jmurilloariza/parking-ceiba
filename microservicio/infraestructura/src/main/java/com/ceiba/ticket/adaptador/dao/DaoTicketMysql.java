@@ -49,9 +49,7 @@ public class DaoTicketMysql implements DaoTicket {
     public boolean validarVehiculoIngreso(String placaVehiculo) {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("placa_vehiculo", placaVehiculo);
-
         List<DtoTicket> tickets = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlBuscaVehiculoFechaSalidaNull, parametros, new MapeoTicket());
-
         return tickets.isEmpty();
     }
 

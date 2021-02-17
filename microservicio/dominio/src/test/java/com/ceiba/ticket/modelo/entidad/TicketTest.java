@@ -1,4 +1,4 @@
-package com.ceiba.ticket;
+package com.ceiba.ticket.modelo.entidad;
 
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.dominio.excepcion.ExceptionValorInvalidoTipoVehiculo;
