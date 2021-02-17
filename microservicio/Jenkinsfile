@@ -16,23 +16,24 @@ pipeline {
     gradle 'Gradle4.5_Centos' // Preinstalada en la Configuración del Master
   }
 
+  // Aquí comienzan los “items” del Pipeline
   stages{
-    stage('Checkout') {
-      steps{
-        echo "------------>Checkout<------------"
-        checkout([
-			$class: 'GitSCM',
-			branches: [[name: '*/master']],
-			doGenerateSubmoduleConfigurations: false,
-			extensions: [],
-			gitTool: 'Default',
-			submoduleCfg: [],
-			userRemoteConfigs: [[
-				credentialsId: 'Github_jmurilloariza',
-				url:'https://github.com/jmurilloariza/parking-ceiba.git'
-			]]
-		])
-      }
+    stage('Checkout'){
+    	steps{
+            echo "------------>Checkout<------------"
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: '*/master']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [],
+                gitTool: 'Default',
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    credentialsId: 'Github_jmurilloariza',
+                    url:'https://github.com/jmurilloariza/parking-ceiba.git'
+                ]]
+            ])
+        }
     }
 
     stage('Clean') {
@@ -87,5 +88,4 @@ pipeline {
     }
   }
 
-}
 }
