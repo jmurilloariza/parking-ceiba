@@ -23,7 +23,7 @@ public class ConsultaControladorTicketTest {
     @Autowired
     private MockMvc mocMvc;
 
-//    @Test
+    @Test
     public void listar() throws Exception {
         this.mocMvc.perform(get("/tickets")
                 .contentType(MediaType.APPLICATION_JSON))
