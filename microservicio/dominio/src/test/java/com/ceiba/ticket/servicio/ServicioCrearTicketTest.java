@@ -6,29 +6,28 @@ import com.ceiba.ticket.modelo.entidad.Ticket;
 import com.ceiba.ticket.puerto.dao.DaoTicket;
 import com.ceiba.ticket.puerto.repositorio.RepositorioTicket;
 import com.ceiba.ticket.servicio.testdatabuilder.TicketTestDataBuilder;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ServicioCrearTicketTest {
 
     private static final String EL_VEHICULO_YA_ESTA_EN_PARQUEADERO = "El vehiculo ya se encuentra dentro del parqueadero";
 
     @Test
-    public void deberiaCrearUnTicket() {
+    @DisplayName("Debería lanzar una excepcion cuando se intenta crear un ticket para un vehiculo que ya tiene un ticket " +
+            "con fecha de salida diferente de null, lo que quiere decir que el vehiculo ya se encuentra a dentro del parqueadero")
+    public void shouldThrowExceptionVehiculoEnParqueoNoPuedeIngresarDuplicado() {
         // arrange
         Ticket ticket = new TicketTestDataBuilder().build();
+        RepositorioTicket repositorioTicket = Mockito.mock(RepositorioTicket.class);
         DaoTicket daoTicket = Mockito.mock(DaoTicket.class);
         Mockito.when(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo())).thenReturn(false);
-        System.out.println(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo()));
-        ServicioCrearTicket servicioCrearTicket = Mockito.mock(ServicioCrearTicket.class);
+        ServicioCrearTicket servicioCrearTicket = new ServicioCrearTicket(repositorioTicket, daoTicket);
 
         BasePrueba.assertThrows(() -> servicioCrearTicket.ejecutar(ticket),
                 ExceptionVehiculoEnParqueoNoPuedeIngresarDuplicado.class,
                 EL_VEHICULO_YA_ESTA_EN_PARQUEADERO);
-
     }
 
 }

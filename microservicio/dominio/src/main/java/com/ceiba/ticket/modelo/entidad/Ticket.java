@@ -46,12 +46,6 @@ public class Ticket {
 
         if (!tipoVehiculo.equals(AUTOMOVIL) && !tipoVehiculo.equals(MOTOCICLETA))
             throw new ExceptionValorInvalidoTipoVehiculo(TIPO_VEHICULO_INVALIDO);
-        /*
-        if (this.calcularDiferenciaEntreHorasEnSegundos(LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(),
-                HORA_APERTURA_LABORES, MINUTO_APERTURA_LABORES) >= 0)
-            throw new ValorInvalidoTipoVehiculoException(PARKING_CERRADO);
-
-         */
 
         this.id = id;
         this.placaVehiculo = placaVehiculo;
@@ -60,10 +54,6 @@ public class Ticket {
         this.createdAt = LocalDateTime.now();
         this.horaSalida = null;
         this.totalPagado = 0d;
-    }
-
-    public void setTotalPagado(Double totalPagado) {
-        this.totalPagado = totalPagado;
     }
 
     @Override

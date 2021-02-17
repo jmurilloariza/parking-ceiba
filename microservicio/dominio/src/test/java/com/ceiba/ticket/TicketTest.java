@@ -3,12 +3,9 @@ package com.ceiba.ticket;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.dominio.excepcion.ExceptionValorInvalidoTipoVehiculo;
 import com.ceiba.ticket.modelo.entidad.Ticket;
-import com.ceiba.ticket.servicio.testdatabuilder.TicketTestDataBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -26,9 +23,9 @@ public class TicketTest {
     @Test
     @DisplayName("Debería lanzar una excepcion de Valor Obligatorio cuando el dato tipo_vehiculo se envia null")
     public void shouldThrowExcepcionValorObligatorioTipoVehiculo(){
-        ExcepcionValorObligatorio exception = assertThrows(ExcepcionValorObligatorio.class, () -> {
-            new Ticket(IDTICKET, PLACA, null);
-        });
+        ExcepcionValorObligatorio exception = assertThrows(ExcepcionValorObligatorio.class, () ->
+            new Ticket(IDTICKET, PLACA, null)
+        );
 
         Assert.assertEquals(TICKET_SIN_TIPO_VEHICULO, exception.getMessage());
 
@@ -37,9 +34,9 @@ public class TicketTest {
     @Test
     @DisplayName("Debería lanzar una excepcion de Valor Obligatorio cuando el dato placa_vehiculo se envia null")
     public void shouldThrowExcepcionValorObligatorioPlacaVehiculo(){
-        ExcepcionValorObligatorio exception = assertThrows(ExcepcionValorObligatorio.class, () -> {
-            new Ticket(IDTICKET, null, TIPOVEHICULO);
-        });
+        ExcepcionValorObligatorio exception = assertThrows(ExcepcionValorObligatorio.class, () ->
+            new Ticket(IDTICKET, null, TIPOVEHICULO)
+        );
 
         Assert.assertEquals(TICKET_SIN_PLACA, exception.getMessage());
     }
@@ -48,9 +45,9 @@ public class TicketTest {
     @DisplayName("Debería lanzar una excepcion de tipo de vehiculo invalido cuando es diferente de 1 o 2")
     public void shouldThrowExcepcionTipoVehiculoInvalido(){
         Integer tipoVehiculo = 4;
-        ExceptionValorInvalidoTipoVehiculo exception = assertThrows(ExceptionValorInvalidoTipoVehiculo.class, () -> {
-            new Ticket(IDTICKET, PLACA, tipoVehiculo);
-        });
+        ExceptionValorInvalidoTipoVehiculo exception = assertThrows(ExceptionValorInvalidoTipoVehiculo.class, () ->
+            new Ticket(IDTICKET, PLACA, tipoVehiculo)
+        );
 
         Assert.assertEquals(TIPO_VEHICULO_INVALIDO, exception.getMessage());
     }
