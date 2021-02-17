@@ -1,6 +1,7 @@
 package com.ceiba.ticket.servicio;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -35,6 +36,7 @@ public class ServicioCalcularTotalPagoTicketTest {
         Assert.assertEquals(totalPagoEsperado, totalPagoCalculado, 2);
     }
 
+    @Ignore
     @Test
     @DisplayName("Debería calcular el monto a pagar dado un tipo de vehiculo motocicleta y una fecha de entrada al parqueadero en " +
             "un dia festivo")
