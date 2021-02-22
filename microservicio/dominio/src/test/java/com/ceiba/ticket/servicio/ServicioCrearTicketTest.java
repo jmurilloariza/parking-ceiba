@@ -11,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class ServicioCrearTicketTest {
 
@@ -31,17 +30,6 @@ public class ServicioCrearTicketTest {
         BasePrueba.assertThrows(() -> servicioCrearTicket.ejecutar(ticket),
                 ExceptionVehiculoEnParqueoNoPuedeIngresarDuplicado.class,
                 EL_VEHICULO_YA_ESTA_EN_PARQUEADERO);
-    }
-
-    @Test
-    public void shouldValidarSiVehiculoEstaEnParqueoPuedeIngresar(){
-        Ticket ticket = new TicketTestDataBuilder().build();
-        DaoTicket daoTicket = Mockito.mock(DaoTicket.class);
-        System.out.println(ticket.toString());
-        System.out.println(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo()));
-
-        assertFalse(daoTicket.validarVehiculoIngreso(ticket.getPlacaVehiculo()));
-
     }
 
 }

@@ -1,8 +1,10 @@
 package com.ceiba.ticket.controlador;
 
 import com.ceiba.ApplicationMock;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -29,5 +31,4 @@ public class ConsultaControladorTicketTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(1)));
     }
-
 }
