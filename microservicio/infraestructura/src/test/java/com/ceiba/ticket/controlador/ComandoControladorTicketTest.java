@@ -43,7 +43,7 @@ public class ComandoControladorTicketTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$", not(empty())))
-                .andExpect(jsonPath("$.mensaje", is("Ticket no encontrado")));
+                .andExpect(jsonPath("$.mensaje", containsString("Ticket no encontrado")));
     }
 
     @Test
