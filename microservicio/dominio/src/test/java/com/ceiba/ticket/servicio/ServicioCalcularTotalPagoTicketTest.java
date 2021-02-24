@@ -2,7 +2,6 @@ package com.ceiba.ticket.servicio;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -16,7 +15,7 @@ public class ServicioCalcularTotalPagoTicketTest {
     @Before
     public void before(){
         this.servicioCalcularTotalPagoTicket  = new ServicioCalcularTotalPagoTicket();
-        this.horaEntrada = LocalDateTime.now().minusHours(2);
+        this.horaEntrada = LocalDateTime.now();
     }
 
     @Test
@@ -25,7 +24,7 @@ public class ServicioCalcularTotalPagoTicketTest {
         Integer tipoVehiculo = 1;
 
         double totalPagoCalculado = this.servicioCalcularTotalPagoTicket.ejecutar(tipoVehiculo, this.horaEntrada);
-        double totalPagoEsperado = 5200;
+        double totalPagoEsperado = 600;
 
         Assert.assertEquals(totalPagoEsperado, totalPagoCalculado, 2);
     }
@@ -36,12 +35,11 @@ public class ServicioCalcularTotalPagoTicketTest {
         Integer tipoVehiculo = 2;
 
         double totalPagoCalculado = this.servicioCalcularTotalPagoTicket.ejecutar(tipoVehiculo, this.horaEntrada);
-        double totalPagoEsperado = 2600;
+        double totalPagoEsperado = 300;
 
         Assert.assertEquals(totalPagoEsperado, totalPagoCalculado, 2);
     }
 
-//    @Ignore
     @Test
     @DisplayName("Debería calcular el monto a pagar dado un tipo de vehiculo motocicleta y una fecha de entrada al parqueadero en " +
             "un dia festivo")
@@ -50,7 +48,7 @@ public class ServicioCalcularTotalPagoTicketTest {
         Integer tipoVehiculo = 2;
 
         double totalPagoCalculado = servicioCalcularTotalPagoTicket.ejecutar(tipoVehiculo, this.horaEntrada);
-        double totalPagoEsperado = 2600;
+        double totalPagoEsperado = 300;
 
         Assert.assertEquals(totalPagoEsperado, totalPagoCalculado, 2);
     }

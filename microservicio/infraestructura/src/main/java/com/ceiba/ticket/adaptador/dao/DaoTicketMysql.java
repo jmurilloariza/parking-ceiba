@@ -1,9 +1,11 @@
 package com.ceiba.ticket.adaptador.dao;
 
+import com.ceiba.infraestructura.excepcion.ExceptionRecursoNoEncontrado;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.ticket.modelo.dto.DtoTicket;
 import com.ceiba.ticket.puerto.dao.DaoTicket;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import java.util.Map;
 public class DaoTicketMysql implements DaoTicket {
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
+    private static final String NO_ENCONTRADO = "Ticket no encontrado";
 
     @SqlStatement(namespace = "ticket", value = "listar")
     private static String sqlListar;
@@ -42,7 +45,11 @@ public class DaoTicketMysql implements DaoTicket {
     public DtoTicket buscarPorId(Long id) {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("id", id);
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscaId, parametros, new MapeoTicket());
+        try {
+            return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscaId, parametros, new MapeoTicket());
+        } catch (EmptyResultDataAccessException e) {
+            throw new ExceptionRecursoNoEncontrado(NO_ENCONTRADO);
+        }
     }
 
     @Override

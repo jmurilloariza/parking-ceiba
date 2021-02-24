@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.ceiba.dominio.excepcion.*;
 import com.ceiba.infraestructura.excepcion.ExcepcionTecnica;
+import com.ceiba.infraestructura.excepcion.ExceptionRecursoNoEncontrado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
         CODIGOS_ESTADO.put(ExcepcionTecnica.class.getSimpleName(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         CODIGOS_ESTADO.put(ExcepcionValorInvalido.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExceptionVehiculoEnParqueoNoPuedeIngresarDuplicado.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
-        
+        CODIGOS_ESTADO.put(ExceptionRecursoNoEncontrado.class.getSimpleName(), HttpStatus.NOT_FOUND.value());
         
         //en caso de tener otra excepcion matricularla aca
     }

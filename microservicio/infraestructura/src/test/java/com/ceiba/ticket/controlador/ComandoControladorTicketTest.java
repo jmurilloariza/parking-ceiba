@@ -35,7 +35,19 @@ public class ComandoControladorTicketTest {
     private static final String ENDPOINT = "/tickets";
 
     @Test
-    public void crear() throws Exception{
+    public void test01PagarTicketNoExistenteExceptionRecursoNoEncontrado() throws Exception{
+        Long id = 54L;
+        // act - assert
+        mocMvc.perform(post(ENDPOINT.concat("/pagar/{id}"), id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$", not(empty())))
+                .andExpect(jsonPath("$.mensaje", is("Ticket no encontrado")));
+    }
+
+    @Test
+    public void test02Crear() throws Exception{
         // arrange
         ComandoTicket ticket = new ComandoTicketTestDataBuilder().build();
         // act - assert
@@ -48,14 +60,14 @@ public class ComandoControladorTicketTest {
     }
 
     @Test
-    public void listar() throws Exception {
+    public void test03Listar() throws Exception {
         this.mocMvc.perform(get("/tickets")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(1)));
     }
 
     @Test
-    public void testPagarTicket() throws Exception {
+    public void test04PagarTicket() throws Exception {
         Long id = 1L;
         // act - assert
         mocMvc.perform(post(ENDPOINT.concat("/pagar/{id}"), id)

@@ -10,8 +10,6 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertFalse;
-
 public class ServicioCrearTicketTest {
 
     private static final String EL_VEHICULO_YA_ESTA_EN_PARQUEADERO = "El vehiculo ya se encuentra dentro del parqueadero";
