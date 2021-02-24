@@ -13,13 +13,12 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Component
 public class DaoTicketMysql implements DaoTicket {
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
-    private static final String NO_ENCONTRADO = "Ticket no encontrado";
+    private static final String NO_ENCONTRADO = "Ticket no encontrado ";
 
     @SqlStatement(namespace = "ticket", value = "listar")
     private static String sqlListar;
@@ -33,11 +32,8 @@ public class DaoTicketMysql implements DaoTicket {
     @SqlStatement(namespace = "ticket", value = "actualizarPagoHoraPago")
     private static String sqlActualizarValorPagoHoraPago;
 
-    private Logger logger;
-
     public DaoTicketMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
-        this.logger = Logger.getLogger(DaoTicketMysql.class.getName());
     }
 
     @Override
@@ -52,8 +48,7 @@ public class DaoTicketMysql implements DaoTicket {
         try {
             return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscaId, parametros, new MapeoTicket());
         } catch (EmptyResultDataAccessException e) {
-            logger.info(e.getMessage());
-            throw new ExceptionRecursoNoEncontrado(NO_ENCONTRADO);
+            throw new ExceptionRecursoNoEncontrado(NO_ENCONTRADO + e);
         }
     }
 
